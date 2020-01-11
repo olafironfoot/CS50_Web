@@ -1,0 +1,91 @@
+/* myStyle.css */
+
+$alignCenter: center;
+
+body {
+  background-color: black;
+
+  h1 {
+   color: white;
+   text-align: $alignCenter;
+   margin: 10%;
+   font: bold;
+   font-size: 200%;
+  }
+
+  h6 {
+    color:white;
+    text-align: $alignCenter;
+  }
+}
+
+.underHeaderSpaceReductionAndMedia {
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+@media (min-width: 500px) {
+    h6::before {
+      content: "Giving structure to knowledge"
+    }
+}
+@media (Max-width: 499px) {
+    h6::before {
+      content: "Structure to knowledge"
+    }
+}
+
+.lessHeaderTopAndBottomSpace {
+  margin-top: 5%;
+  margin-bottom: 5px;
+}
+
+#centerDivOnGetStartedPage {
+  text-align: $alignCenter;
+}
+
+.centerThis {
+    text-align: $alignCenter;
+}
+
+.whiteSpaceBlackText {
+  color: black;
+  background-color: white;
+  padding: 10px;
+  text-align: $alignCenter;
+  justify-content: center;
+
+
+}
+
+.marginAndCenter {
+  margin: 2.5%;
+  font-size: 150%;
+  color: white;
+  text-align: $alignCenter;
+
+}
+
+ol {
+  display: box;
+  align-content: center;
+  text-align: $alignCenter;
+}
+
+footer {
+  text-align: $alignCenter;
+  bottom: 0;
+  position: absolute;
+  width: auto;
+}
+
+
+/* #commented out incase need again as part of requirements#
+.roundEdgeButton {
+  padding: 10px;
+  font-size: 24px;
+  background-color: white;
+}
+.roundEdgeButton:hover{
+  background-color: black;
+  color: white;
+} */

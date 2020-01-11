@@ -1,0 +1,133 @@
+/* myStyle.css */
+body {
+  background-color: black;
+  padding-bottom: 70px;
+}
+body h1 {
+  color: white;
+  text-align: center;
+  margin: 10%;
+  font: bold;
+  font-size: 200%;
+}
+body h6 {
+  color: white;
+  text-align: center;
+}
+
+.underHeaderSpaceReductionAndMedia {
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 500px) {
+  h6::before {
+    content: "Giving structure to knowledge";
+  }
+}
+@media (Max-width: 499px) {
+  h6::before {
+    content: "Structure to knowledge";
+  }
+}
+.lessHeaderTopAndBottomSpace {
+  margin-top: 5%;
+  margin-bottom: 5px;
+}
+
+#centerDivOnGetStartedPage {
+  text-align: center;
+}
+
+.centerThis {
+  text-align: center;
+}
+
+.whiteSpaceBlackText {
+  color: black;
+  background-color: white;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+}
+
+.marginAndCenter {
+  margin: 2.5%;
+  font-size: 150%;
+  color: white;
+  text-align: center;
+}
+
+ol {
+  display: box;
+  align-content: center;
+  text-align: center;
+}
+
+footer {
+
+  color: white;
+  bottom: 0;
+  text-align: center;
+
+}
+
+.imageMaxWidth {
+  max-height: 100px;
+}
+
+/* below copied and pasted from https://stackoverflow.com/questions/38160951/how-do-i-horizontally-center-a-table-in-bootstrap?rq */
+
+table {
+   text-align: center;
+   border-spacing: 0.025em;
+}
+
+.tableFixHead thead th{
+  color: black;
+  background: white;
+  position: sticky;
+  top: 0;
+}
+
+.table {
+   margin: auto;
+   width: auto;
+   color: white;
+
+}
+
+.tableFixHead  { overflow-y: auto; height: 500px; }
+
+/* above copied and pasted from https://stackoverflow.com/questions/38160951/how-do-i-horizontally-center-a-table-in-bootstrap?rq */
+@media (min-width: 300px) {
+    .table { font-size: 0.25rem; }
+}
+
+@media (min-width: 576px) {
+    .table { font-size: 0.5rem; }
+}
+@media (min-width: 768px) {
+    .table { font-size: 1rem; }
+}
+@media (min-width: 992px) {
+    .table { font-size: 1.5rem; }
+}
+@media (min-width: 1200px) {
+    .table { font-size: 2rem; }
+/* above copied and pasted from https://stackoverflow.com/questions/48572331/how-to-create-responsive-text-in-bootstrap-4 */
+
+
+
+/* #commented out incase need again as part of requirements#
+.roundEdgeButton {
+  padding: 10px;
+  font-size: 24px;
+  background-color: white;
+}
+.roundEdgeButton:hover{
+  background-color: black;
+  color: white;
+} */
+
+/*# sourceMappingURL=master.css.map */

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+  First pageee
+
+{% endblock heading %}
+
+{% block bodyyy %}
+
+        <p> Start of block. From here on out all are codes under original HTML (not extended) it tries to inherit first, but if the original HTML has defined size/propreties, it will overwrite the inherit</p>
+        {% if new_yearVarFromPython %}
+
+        <ul>
+          {% for note in notes %}
+            <li>{{ note }}</li>
+          {% endfor %}
+        </ul>
+
+        <form action="{{ url_for('index') }}" method="post">
+          <input type="text" name="note" placeholder="write notes here">
+          <button> Add Note </button>
+        </form>
+
+        <h1>Yes! Happy New Year!</h1>
+        {% else %}
+            <div>NO, it's {{new_yearVarFromPython}} you silly!</div>
+        {% endif %}
+
+        <div>{{textVarDefinedInPythonToHTML}}</div>
+
+        <ul>
+          {% for i in listVarLinkedFromPythonToHTML %}
+            <li> {{ i }} </li>
+          {% endfor %}
+        </ul>
+
+
+        <a href="{{ url_for('more') }}"> Go to more </a>
+
+        <p>End of block</p>
+
+        <form action="{{url_for('hello')}}" method=POST>
+
+          <!-- under <input> tag, the name attribute is used to specify a name(ie. "nameFromForm") for an <input> element.-->
+          <input type="text" name="nameFromForm" placeholder="Enter name">
+        <button> submit </button>
+        </form>
+
+{% endblock %}

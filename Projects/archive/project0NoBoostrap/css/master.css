@@ -1,0 +1,72 @@
+/* myStyle.css */
+body {
+  background-color: black;
+}
+
+section {
+
+ color: white;
+ font-family: helvetica;
+ text-align: center;
+ max-width: 100%;
+ margin: 0%;
+}
+
+h1 {
+ color: auto;
+ text-align: center;
+ margin: 10%;
+ font: bold;
+ font-size: 200%;
+}
+
+
+.underHeaderSpaceReduction {
+  margin-top: 0px;
+  margin-bottom: 10%;
+}
+
+.lessBottomSpace {
+  margin-bottom: 5px;
+}
+
+
+.whiteSpaceBlackText {
+  display: box;
+  background-color: white;
+  color: black;
+  padding: 2.5%;
+
+}
+
+.marginPlease {
+  margin: 10%;
+  font-size: 150%;
+  color: white;
+
+}
+
+ol {
+  display: box;
+  align-content: center;
+  margin-left: 40%;
+  text-align: left;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: auto;
+}
+
+.roundEdgeButton {
+  justify-content: center;
+  padding: 10px;
+
+  font-size: 24px;
+  background-color: white;
+}
+.roundEdgeButton:hover{
+  background-color: black;
+  color: white;
+}

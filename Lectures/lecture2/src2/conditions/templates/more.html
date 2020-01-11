@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block heading %}
+  This sentence is in between block heading and endblock inheriting H2 size
+{% endblock %}
+
+{% block bodyyy %}
+        <p>
+          Start of block bodyyy
+          No more lorum pusoms leh
+        </p>
+
+        <a href="{{ url_for('index') }}">Go back</a>
+        <p>endblock</p>
+{% endblock %}
