@@ -2,24 +2,28 @@
 
 {% block heading %}
   First pageee
-
+  Notes too
 {% endblock heading %}
 
 {% block bodyyy %}
 
-        <p> Start of block. From here on out all are codes under original HTML (not extended) it tries to inherit first, but if the original HTML has defined size/propreties, it will overwrite the inherit</p>
-        {% if new_yearVarFromPython %}
 
         <ul>
-          {% for note in notes %}
-            <li>{{ note }}</li>
+          {% for i in notesForHtmlFromPy %}
+            <li>{{ i }}</li>
           {% endfor %}
         </ul>
 
         <form action="{{ url_for('index') }}" method="post">
-          <input type="text" name="note" placeholder="write notes here">
+          <!-- name = userInput doesn't relate back to the for loop above, it's meant for python -->
+          <input type="text" name="userInput" placeholder="write notes here">
           <button> Add Note </button>
         </form>
+
+
+
+        <p> Start of new_year variable from python block. From here on out all are codes under original HTML (not extended) it tries to inherit first, but if the original HTML has defined size/propreties, it will overwrite the inherit</p>
+        {% if new_yearVarFromPython %}
 
         <h1>Yes! Happy New Year!</h1>
         {% else %}

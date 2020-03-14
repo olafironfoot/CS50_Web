@@ -7,12 +7,12 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-notes_py = []
+notes = []
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
         note = request.form.get("note")
-        notes_py.append(note)
+        notes.append(note)
 
-    return render_template("index.html", notes=notes_py)
+    return render_template("index.html", notes=notes)
