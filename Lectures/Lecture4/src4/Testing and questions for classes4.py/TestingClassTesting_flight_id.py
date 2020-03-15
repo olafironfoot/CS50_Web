@@ -17,40 +17,27 @@
 
 
 class Flight:
-
-    """docstring for Flight."""
+    pass
     counter = 1
 
     def __init__(self):
         self.id = Flight.counter
         Flight.counter += 1
 
-        self.passengers = []
+        self.passengers = ["self.passangers list 1", "self.passangers list 2"]
 
 
-#creating a function that adds Passengers
     def add_passenger(self, p):
         self.passengers.append(p)
         p.flight_id = self.id
-        #p.flight_id = Flight.counter
-
 
     def print_info(self):
-        # for passenger in self.passengers:
-        #     print(f"Passenger name: {passenger.name} \n Flight ID: {passenger.flight_id}")
 
         print(self.passengers)
+        # print(self.passengers.flight_id)
 
-
-        #Question: Why doesn't print(self.passengers) work like print(list) below? print(self.passengers) returns a memory address instead of a list. 
-
-        #Question1(Answered1), if both are list, why does one return the list and the other the memory address?
-        #because the list was in the function, "print_info" under the class flight. when moved to the main code, it was able to print the list.
-        #in order to print the list self.passengers
-
-
-        #Question: how to print the "self.passengers = []" list?
-        # print(f"Passenger name: {self.passengers} \n Flight ID: {passengers.flight_id}")
+        #Question 1: Why doesn't print(self.passengers) work like print(list) below? print(self.passengers) returns a memory address instead of a list.
+        #Question 2: how do we print the flight_id? because print(self.passengers.flight_id) doens't seem to work..
 
 #recreating class
 class Passenger:
@@ -63,9 +50,10 @@ class Passenger:
 def main():
 
     f1 = Flight()
-    michael = Passenger(name = "MichaelScott")
-    f1.add_passenger(michael)
-    f1.print_info()
+    michael = Passenger(name = "MichaelScott")      #creates an object under the class Passenger
+    f1.add_passenger(michael)       #calls the function add_passenger(for the flight, f1) passing the value, michael- which is an object under the class Passenger)
+                                    #the function appends michael into the f1.passenger list
+    f1.print_info()                 #prints the attributes for the object f1, namely the list f1.passengers
 
     list = [1, 2, 3]
     print(list)
