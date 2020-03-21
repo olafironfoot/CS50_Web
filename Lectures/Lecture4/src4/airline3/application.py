@@ -2,13 +2,14 @@ from flask import Flask, render_template, request
 from models import *
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://ufahdppxmwmnfk:e0c55691f4045b71ca10ca5fad61e91027d9131fb8c7904142dcb0677f2a4a2e@ec2-23-21-13-88.compute-1.amazonaws.com:5432/d2vbqq75absh07"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
 
 @app.route("/")
 def index():
+    #passing flight data to index tempalate
     flights = Flight.query.all()
     return render_template("index.html", flights=flights)
 
@@ -30,6 +31,7 @@ def book():
         return render_template("error.html", message="No such flight with that id.")
 
     # Add passenger.
+    #olaf: this is the function, which passes name into the function, that adds whatever name was passed, along with a tagged .id attribute to our database.
     flight.add_passenger(name)
     return render_template("success.html")
 

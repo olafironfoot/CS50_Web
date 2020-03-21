@@ -32,11 +32,13 @@ class Flight:
         p.flight_id = self.id
 
     def print_info(self):
+        #Memory address apprears if we print an object instead of it's attribute, therefore to print the name and flight_id attributes of the object stored in list "self.passengers", we need to que the "list[objectWithinTheList].Attribute". 
+        print(f"{self.passengers[:2]} and {self.passengers[2].name}'s Flight ID is... {self.passengers[2].flight_id}'")
 
-        print(self.passengers)
-        # print(self.passengers.flight_id)
 
         #Question 1: Why doesn't print(self.passengers) work like print(list) below? print(self.passengers) returns a memory address instead of a list.
+        #Potential Ans from Stackoverflow: This print(self.passengers.flight_id) would fail because self.passengers is a list and has no flight_id attribute.
+
         #Question 2: how do we print the flight_id? because print(self.passengers.flight_id) doens't seem to work..
 
 #recreating class

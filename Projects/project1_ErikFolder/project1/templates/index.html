@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    CS50_Web_Project1
+{% endblock %}
+
+{% block body %}
+    <h1>Login to CS50_Web_Project1</h1>
+
+    <!-- <form action="{{ url_for('register') }}" method="post">
+
+        <div class="form-group">
+            <select class="form-control" name="flight_id">
+                {% for flight in flights %}
+                    <option value="{{ flight.id }}">{{ flight.origin }} to {{ flight.destination }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="name" placeholder="Passenger Name">
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary">Book Flight</button>
+        </div>
+
+    </form> -->
+
+    <form action="{{ url_for('register') }}" method="POST">
+    <button>Register</button>
+    </form>
+
+
+{% endblock %}
