@@ -1,7 +1,7 @@
 /* style.css */
 .note
 {
-    text-align: center;
+    text-align: left;
     height: 80px;
     background: -webkit-linear-gradient(left, #0072ff, #8811c5);
     color: #fff;

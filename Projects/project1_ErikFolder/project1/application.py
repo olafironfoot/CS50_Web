@@ -34,7 +34,7 @@ def index():
 def register():
     """Register for the site"""
 
-    return render_template("registerSuccess.html")
+    return render_template("auth/registerHere.html")
 
 
 #olaf: Login button
