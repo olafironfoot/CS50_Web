@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Success!
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-12" align="center">
+      <h1>Success!</h1>
+      {{ message }}
+      <br>
+      <form action="{{ url_for('index') }}" method="GET">
+        <button class="btnSubmit col-12">Back to home</button>
+    </div>
+</div>
+
+{% endblock %}

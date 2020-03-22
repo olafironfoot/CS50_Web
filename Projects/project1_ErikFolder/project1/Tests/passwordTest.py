@@ -21,10 +21,10 @@ def verify_password(stored_password, provided_password):
     pwdhash = binascii.hexlify(pwdhash).decode('ascii')
     return pwdhash == stored_password
 
-#olaf: Usage - of encryption using pbkdf2 and scrypt (Source: https://www.vitoshacademy.com/hashing-passwords-in-python/)
-# stored_password = hash_password('ThisIsAPassWord')
-# print(stored_password)
-#
-# print(verify_password(stored_password, 'ThisIsAPassWord'))
-#
-# print(verify_password(stored_password, 'WrongPassword'))
+olaf: Usage - of encryption using pbkdf2 and scrypt (Source: https://www.vitoshacademy.com/hashing-passwords-in-python/)
+stored_password = hash_password('ThisIsAPassWord')
+print(stored_password)
+
+print(verify_password(stored_password, 'ThisIsAPassWord'))
+
+print(verify_password(stored_password, 'WrongPassword'))

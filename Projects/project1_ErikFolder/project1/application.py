@@ -4,7 +4,7 @@ from flask import Flask, session, render_template, jsonify, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from werkzeug.security import generate_password_hash, check_password_hash
+from models import *
 
 
 app = Flask(__name__)
@@ -47,17 +47,8 @@ def registered():
         register them into the database and hash the password"""
 
     userNameVariableInApplication_py = request.form['userNameFromHTML']
-    passwordVariableInApplication_py = request.form['passwordFromHTML']
-    passwordConfirmationVariableInApplication_py = request.form['passwordConfirmationFromHTML']
-
-    #check that passwords matches
-    if passwordVariableInApplication_py != passwordConfirmationVariableInApplication_py:
-        return render_template("error.html", message="password does not match")
-
-# olaf: from airline1/application.py
-    #olaf: if rowcount > 0 (user already exist), give error message
-    if db.execute("SELECT * FROM users_and_passwords WHERE userName = :userName", {"userName": userNameVariableInApplication_py}).rowcount > 0:
-        return render_template("error.html", message="Username already exisit, pick another username")
+    passwordVariableInApplication_py = hash_password(request.form['passwordFromHTML'])
+    passwordConfirmationVariableInApplication_py = hash_password(request.form['passwordConfirmationFromHTML'])
 
 #olaf: Usage - of encryption using pbkdf2 and scrypt (Source: https://www.vitoshacademy.com/hashing-passwords-in-python/)
 # stored_password = hash_password('ThisIsAPassWord')
@@ -66,12 +57,25 @@ def registered():
 # print(verify_password(stored_password, 'ThisIsAPassWord'))
 #
 # print(verify_password(stored_password, 'WrongPassword'))
+    #olaf: encrypted way of checking password match
+    if request.form['passwordFromHTML'] != request.form['passwordConfirmationFromHTML']:
+        return render_template("error.html", message="password does not match")
+
+    # #olaf: non-encrypt way of check that passwords matches
+    # if passwordVariableInApplication_py != passwordConfirmationVariableInApplication_py:
+    #     return render_template("error.html", message="password does not match")
+
+# olaf: from airline1/application.py
+    #olaf: if rowcount > 0 (user already exist), give error message
+    if db.execute("SELECT * FROM usersAndPasswords_table WHERE userName = :userName", {"userName": userNameVariableInApplication_py}).rowcount > 0:
+        return render_template("error.html", message="Username already exisit, pick another username")
+
 
 #olaf: insert name and password into the usersAndPasswords_table
     db.execute("INSERT INTO usersAndPasswords_table (username, password) VALUES (:username, :password)",
             {"username": userNameVariableInApplication_py, "password": passwordVariableInApplication_py})
     db.commit()
-    return render_template("success.html")
+    return render_template("success.html", message="You're registered! Click on the button below go back and sign in.")
 # olaf: End of from airline1/application.py
 
 
