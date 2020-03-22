@@ -1,10 +1,25 @@
 {% extends "layout.html" %}
 
+
 {% block title %}
     Register for Book Reviews
 {% endblock %}
 
 {% block body %}
+<!-- JS code from https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page/21727518 -->
+<script>
+  var check = function() {
+    if (document.getElementById('password').value ==
+      document.getElementById('confirm_password').value) {
+      document.getElementById('message').style.color = 'green';
+      document.getElementById('message').innerHTML = 'matching';
+    } else {
+      document.getElementById('message').style.color = 'red';
+      document.getElementById('message').innerHTML = 'not matching';
+    }
+  }
+</script>
+
     <h1>Success!</h1>
     <div class="container register-form">
             <div class="form">
@@ -12,29 +27,40 @@
                     <p>This is a simpleRegister Form made using Boostrap.</p>
                 </div>
 
-                <div class="form-content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name *" value=""/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Phone Number *" value=""/>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Password *" value=""/>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Confirm Password *" value=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btnSubmit">Submit</button>
-                </div>
+                <form action="{{ url_for('registered') }}" method="post">
+                  <div class="form-content">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Your Name *" value="" name="userNameFromHTML"/>
+                              </div>
+
+                              <!-- JS code from https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page/21727518 -->
+                              <div class="form-group">
+                                  <input name="passwordFromHTML" id="password" placeholder="Password *" type="password" onkeyup='check();' class="form-control"/>
+                                  <!-- <input type="text" class="form-control" placeholder="Your Password *" value="" passwordFromHTML="passwordFromHTML"/> -->
+                              </div>
+                              <div class="form-group">
+                                  <input name="passwordConfirmationFromHTML" id="confirm_password" placeholder="Confirm Password *" type="password" onkeyup='check();' class="form-control"/>
+                                  <span id='message'></span>
+                                  <!-- <input type="text" class="form-control" placeholder="Confirm Password *" value="" passwordConfirmationFromHTML="passwordConfirmationFromHTML"/> -->
+                              </div>
+                              <!-- End of JS code from <!-- JS code from https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page/21727518 -->
+                          </div>
+                      </div>
+                      <form action="{{ url_for('registered') }}" method="POST">
+                      <!-- <button>Confirm Registration</button> -->
+                      <button class="btnSubmit">Register</button>
+                      </form>
+                      <!-- <button type="button" class="btnSubmit" action="{{ url_for('registered') }}" method="POST">Register</button> -->
+                  </div>
+                </form>
             </div>
         </div>
+
+
+
+
 
     You have successfully booked your flight.
 {% endblock %}

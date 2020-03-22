@@ -4,6 +4,8 @@ from flask import Flask, session, render_template, jsonify, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 
@@ -36,8 +38,46 @@ def register():
 
     return render_template("auth/registerHere.html")
 
+@app.route("/registered", methods=["POST"])
+def registered():
+    """User clicked register and now has to check if:
+    - password matches
+    - Username duplicates
+    else:
+        register them into the database and hash the password"""
 
-#olaf: Login button
+    userNameVariableInApplication_py = request.form['userNameFromHTML']
+    passwordVariableInApplication_py = request.form['passwordFromHTML']
+    passwordConfirmationVariableInApplication_py = request.form['passwordConfirmationFromHTML']
+
+    #check that passwords matches
+    if passwordVariableInApplication_py != passwordConfirmationVariableInApplication_py:
+        return render_template("error.html", message="password does not match")
+
+# olaf: from airline1/application.py
+    #olaf: if rowcount > 0 (user already exist), give error message
+    if db.execute("SELECT * FROM users_and_passwords WHERE userName = :userName", {"userName": userNameVariableInApplication_py}).rowcount > 0:
+        return render_template("error.html", message="Username already exisit, pick another username")
+
+#olaf: Usage - of encryption using pbkdf2 and scrypt (Source: https://www.vitoshacademy.com/hashing-passwords-in-python/)
+# stored_password = hash_password('ThisIsAPassWord')
+# print(stored_password)
+#
+# print(verify_password(stored_password, 'ThisIsAPassWord'))
+#
+# print(verify_password(stored_password, 'WrongPassword'))
+
+#olaf: insert name and password into the usersAndPasswords_table
+    db.execute("INSERT INTO usersAndPasswords_table (username, password) VALUES (:username, :password)",
+            {"username": userNameVariableInApplication_py, "password": passwordVariableInApplication_py})
+    db.commit()
+    return render_template("success.html")
+# olaf: End of from airline1/application.py
+
+
+
+
+##olaf: Login button
 # @app.route("/login", methods=["POST"])
 # def login():
 #     """Register for the site"""
