@@ -26,10 +26,41 @@
         </div>
 
     </form> -->
+    <div class="container register-form">
+            <div class="form">
+                <div class="note">
+                    <p>Book reviews</p>
+                </div>
 
-    <form action="{{ url_for('register') }}" method="POST">
-    <button>Register</button>
-    </form>
+                <form action="{{ url_for('login') }}" method="post">
+                  <div class="form-content">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Your Name *" value="" name="userNameFromHTML"/>
+                              </div>
+
+                              <!-- JS code from https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page/21727518 -->
+                              <div class="form-group">
+                                  <input name="passwordFromHTML" id="password" placeholder="Password *" type="password" onkeyup='check();' class="form-control"/>
+                                  <!-- <input type="text" class="form-control" placeholder="Your Password *" value="" passwordFromHTML="passwordFromHTML"/> -->
+                              </div>
+                              <!-- End of JS code from <!-- JS code from https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page/21727518 -->
+                              <div class="form-group">
+                                <form action="{{ url_for('login') }}" method="POST">
+                                <!-- <button>Confirm Registration</button> -->
+                                <button class="btnSubmit">Login</button>
+                              </div>
+
+                              <div class="form-group">
+                                </form>
+                                <!-- <button type="button" class="btnSubmit" action="{{ url_for('registered') }}" method="POST">Register</button> -->
+                                <form action="{{ url_for('register') }}" method="POST">
+                                <button class=btnSubmit>Register</button>
+                              </form>
+          </div>
+    </div>
+
 
 
 {% endblock %}

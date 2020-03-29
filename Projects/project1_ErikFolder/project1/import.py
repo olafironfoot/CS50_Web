@@ -9,12 +9,13 @@ engine = create_engine("postgres://ufahdppxmwmnfk:e0c55691f4045b71ca10ca5fad61e9
 db = scoped_session(sessionmaker(bind=engine))
 
 def main():
-    f = open("flights.csv")
+    f = open("books.csv")
     reader = csv.reader(f)
-    for o, des, dur in reader:    #reads csv line by line#
-        db.execute("INSERT INTO flights (origin, destination, duration) VALUES (:origin, :destination, :duration)", #place holder fo origin, destination, duration#
-                    {"origin": o, "destination": des, "duration": dur})
-        print(f"Added flight from {o} to {des} lasting {dur} minutes.")
+    for isb, titl, auth, yr in reader:    #reads csv line by line#
+
+        db.execute("INSERT INTO books_table (isbn, title, author, year) VALUES (:isbn, :title, :author, :year)",
+                    {'isbn': isb, 'title': titl, 'author': auth, "year": yr})
+        print(f"Added to books_table, {isb}, {titl}, {auth}, {yr}.")
     db.commit()
 
 if __name__ == "__main__":

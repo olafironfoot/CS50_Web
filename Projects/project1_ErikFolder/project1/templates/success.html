@@ -12,7 +12,12 @@
       <br>
       <form action="{{ url_for('index') }}" method="GET">
         <button class="btnSubmit col-12">Back to home</button>
+      <div class="col-12, pt-3" align="right">
+        <form action="{{ url_for('logout') }}" method="GET">
+          <button class="btnSubmit col-3">Logout</button>
+      </div>
     </div>
+
 </div>
 
 {% endblock %}
