@@ -22,7 +22,6 @@ if not "postgres://ufahdppxmwmnfk:e0c55691f4045b71ca10ca5fad61e91027d9131fb8c790
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 # Set up database
 engine = create_engine("postgres://ufahdppxmwmnfk:e0c55691f4045b71ca10ca5fad61e91027d9131fb8c7904142dcb0677f2a4a2e@ec2-23-21-13-88.compute-1.amazonaws.com:5432/d2vbqq75absh07")
@@ -32,8 +31,12 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/")
 def index():
     """Provide fields for login"""
+    if request.method=="POST":
+        return render_template("success.html", message="logged in from index to success page")
+
     if 'username' in session:
         return render_template("searchForm.html")
+
         # return 'Logged in as %s' % escape(session['username'])
     return render_template("index.html", message="not logged in")
 
@@ -54,22 +57,35 @@ def search():
 
     #olaf: pass the search field as a SQL command into database and return the result
         #olaf: display the result back into the HTML by using a list and loop
-    searchBookVariableOnApplication_py=request.form['searchBook']
+    if request.method == "POST":
+        if request.form['submit_button'] == "search":
+            searchBookVariableOnApplication_py=request.form['searchBook']
 
-    # found = db.execute("SELECT * FROM books_table WHERE isbn OR title OR author OR year LIKE '%lookingFor= :lookingFor%' ", {"lookingFor": searchBookVariableOnApplication_py}).fetchall()
+            if searchBookVariableOnApplication_py == "":
+                return render_template("error.html", message="no search fields provided")
 
-    # best example, but no data passed:
-    found = db.execute("SELECT * FROM books_table WHERE (isbn LIKE :lookingFor) OR (title LIKE :lookingFor) OR (title LIKE :lookingFor) OR (year::text LIKE :lookingFor)",
-     {"lookingFor": f"%{searchBookVariableOnApplication_py}%"}).fetchall();
+            # found = db.execute("SELECT * FROM books_table WHERE isbn OR title OR author OR year LIKE '%lookingFor= :lookingFor%' ", {"lookingFor": searchBookVariableOnApplication_py}).fetchall()
+
+            # best example, but no data passed:
+            found = db.execute("SELECT * FROM books_table WHERE (isbn ILIKE :lookingFor) OR (title ILIKE :lookingFor) OR (author ILIKE :lookingFor) OR (year::text ILIKE :lookingFor)",
+            {"lookingFor": f"%{searchBookVariableOnApplication_py}%"}).fetchall();
+
+             #working code:
+             # found = db.execute("SELECT * FROM books_table WHERE isbn LIKE '%' || :lookingFor || '%'", {"lookingFor": f"{searchBookVariableOnApplication_py}"}).fetchall();
 
 
-    # olaf:tried striping and doing literal ||, did not work, same issue:
-    #found = db.execute("SELECT * FROM books_table WHERE (isbn LIKE '%'||:lookingFor||'%') OR (title LIKE '%||:lookingFor||%') OR (title LIKE '%||:lookingFor||%') OR (year::text LIKE '%||:lookingFor||%')", {'lookingFor': searchBookVariableOnApplication_py.strip("\'")}).fetchall();
+            # olaf:tried striping and doing literal ||, did not work, same issue:
+            #found = db.execute("SELECT * FROM books_table WHERE (isbn LIKE '%'||:lookingFor||'%') OR (title LIKE '%||:lookingFor||%') OR (title LIKE '%||:lookingFor||%') OR (year::text LIKE '%||:lookingFor||%')", {'lookingFor': searchBookVariableOnApplication_py.strip("\'")}).fetchall();
 
 
-    #olaf: working code without variables
-    #found = db.execute("SELECT * FROM books_table WHERE (isbn LIKE '%123%') OR (title LIKE '%123%') OR (title LIKE '%123%') OR (year::text LIKE '%2012%')");
-    return render_template("search.html", found=found)
+            #olaf: working code without variables
+            #found = db.execute("SELECT * FROM books_table WHERE (isbn LIKE '%123%') OR (title LIKE '%123%') OR (title LIKE '%123%') OR (year::text LIKE '%2012%')");
+            return render_template("search.html", found=found)
+
+
+        elif request.form['submit_button'] == 'logout':
+            return redirect(url_for('logout'))
+
 
 
 
@@ -87,7 +103,7 @@ def book(book_id):
     # Get review infomation on book
     # review_table = db.execute("SELECT isbn, title, author, year FROM books_table WHERE book_id = :book_id",
     #                         {"book_id": book_id}).fetchall()
-    return render_template("book.html", book=book, passengers=passengers)
+    return render_template("book.html", book=book)
     #olaf: to be implemented when review table is ready: return render_template("book.html", book=book, passengers=passengers)
 
 
@@ -115,11 +131,12 @@ def login():
 
 
 
-@app.route('/logout', methods=["GET", "POST"])
+@app.route("/logout", methods=["POST", "GET"])
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
-    return redirect(url_for('index'))
+    # return redirect(url_for('success.html'))
+    return render_template("logout.html", message="logged out!")
 
 #olaf: Login button
 @app.route("/register", methods=["POST"])
@@ -152,8 +169,10 @@ def registered():
         return render_template("error.html", message="username cannot be blank")
     if request.form['passwordFromHTML'] != request.form['passwordConfirmationFromHTML']:
         return render_template("error.html", message="password does not match")
-    if request.form['passwordFromHTML'] or request.form['passwordConfirmationFromHTML'] == "":
+    if request.form['passwordFromHTML'] == None:
         return render_template("error.html", message="password cannot be blank")
+    if request.form['passwordConfirmationFromHTML'] == None:
+        return render_template("error.html", message="password confirmation cannot be blank")
 
 
     # #olaf: non-encrypt way of check that passwords matches

@@ -11,6 +11,7 @@
                 <p>Search Form</p>
             </div>
 
+
             <form action="{{ url_for('search') }}" method="post">
               <div class="form-content">
                   <div class="row">
@@ -22,25 +23,27 @@
                           <div class="form-group">
                             <form action="{{ url_for('search') }}" method="POST">
                             <!-- <button>Confirm Registration</button> -->
-                            <button class="btnSubmit">Search</button>
+                            <button class="btnSubmit" type="submit" name="submit_button" value="search">Search</button>
                           </div>
                     </div>
                   </div>
               </div>
 
 
-<div class="row">
-    <div class="col-12" align="center">
-      <br>
-      <form action="{{ url_for('index') }}" method="GET">
-        <button class="btnSubmit col-12">Back to home</button>
+            <!-- <div class="row">
+                <div class="col-12" align="center">
+                  <br>
+                  <form action="{{ url_for('index') }}" name="home" method="POST">
+                    <button class="btnSubmit col-12" type="submit" name="submit_button" value="home">Back to home</button> -->
 
-      <div class="col-12, pt-3" align="right">
-        <form action="{{ url_for('logout') }}" method="GET">
-          <button class="btnSubmit col-3">Logout</button>
+                  <div class="col-12, pt-3" align="right">
+                    <form action="{{ url_for('logout') }}" name="logout" method="POST">
+                      <button class="btnSubmit col-3" type="submit" name="submit_button" value="logout">Logout</button>
+                  </div>
+                </div>
+            </div>
+
       </div>
-    </div>
-
 </div>
 
 {% endblock %}
